@@ -1,0 +1,75 @@
+%\VignetteIndexEntry{Inheritance_Diagram_Example}
+\documentclass {article}
+\usepackage {maia2}
+\SweaveOpts{keep.source=TRUE}
+\SweaveOpts{prefix.string=tmp}
+
+\begin{document}
+
+<<echo=false>>=
+options(continue=" ")
+options(SweaveHooks=list(fig=function()
+par(mar=c(5.1, 4.1, 1.1, 2.1))))
+library (iv)
+@
+
+\mtitle {iv}{0.1.0}{Inherintance Diagram Example}
+
+\mabstract{This vignette is temporary, and provides an example of using the iv package to create a simple inheritance diagram.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\msec {NOTE}
+
+This package replaces (and is derived from) the umlr package. Currently, much of this package, reflects the earlier package. Many functions may be renamed in the next revision.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\msec {Simple Example}
+
+In the iv package, a uml model is treated in a similar way to a directed graph. We create some nodes (representing classes, etc), then some connections (aka edges) between pairs of nodes. Potentially, we can group a set of connections, to produce what I like to refer to as composite arrows (currently, north-facing only). Then create a model, from the nodes and connections.
+
+<<eval=false>>=
+umlro.fill (rgb (0.965, 0.95, 1) )
+@
+
+<<eval=false>>=
+v0 = umlclass ("mysuperclass", abstract=TRUE, y=-4)
+v1 = umlclass ("mysubclass1", c ("x", "y"), x=-4)
+v2 = umlclass ("mysubclass2", c ("u", "v"), "f", x=4)
+con1 = umlextends (v1, v0)
+con2 = umlextends (v2, v0)
+umlmerge (con1, con2)
+@
+
+<<eval=false>>=
+m = uml (v0, v1, v2, con1, con2)
+@
+
+\noindent We can create a simple GUI (more precisely an interactive plot) to adjust the layout. Closing the plotting window, or clicking on the edge of plot, sets the nodes in place. 
+<<eval=false>>=
+umlgui (m)
+umlpdf (m)
+@
+
+\begin {center}
+	\includegraphics {model.pdf}
+\end {center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\msec {Sweave Notes}
+
+Note that to successfully use this package with Latex, actual image sizes need to be used. In the case of Sweave, one needs to include something along the lines of:
+\begin {verbatim}
+\usepackage[nogin]{Sweave}
+\end {verbatim}
+
+\noindent Also note that the commands \verb|umlgui| and \verb|umlpdf| don't work within sweave. The gui is interactive and the pdf command creates it's own graphics device.
+
+\end{document}
+
+
