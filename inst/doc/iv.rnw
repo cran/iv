@@ -13,7 +13,7 @@ par(mar=c(5.1, 4.1, 1.1, 2.1))))
 library (iv)
 @
 
-\mtitle {iv}{0.1.0}{Inherintance Diagram Example}
+\mtitle {iv}{0.1.1}{Inherintance Diagram Example}
 
 \mabstract{This vignette is temporary, and provides an example of using the iv package to create a simple inheritance diagram.}
 
