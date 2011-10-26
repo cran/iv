@@ -1,6 +1,6 @@
 uml = function (..., g=umlgraph (...), k=umlcanvas (),
 	model.path="model.umlr", image.path="model")
-	extend (ENVIRONMENT (g, k, model.path, image.path), "uml")
+	extend (new.env (), "uml", g, k, model.path, image.path)
 
 
 umlcanvas = function (model.size=c (22, 15), margin.size=0.2, xlim, ylim)
@@ -23,6 +23,7 @@ umldims.uml = function (m, ...) umldims (m$g)
 print.uml = function (m, ...) print (m$g)
 
 recenter = function (...) UseMethod ("recenter")
+
 
 
 

@@ -5,16 +5,16 @@ umlgraph = function (..., vs=list (), cs=list () )
 		else if (is.umlconnection (obj) ) cs [[length (cs) + 1]] = obj
 		else stop ("umlgraph only accepts umlnodes and umlconnections")
 	}
-	extend (ENVIRONMENT (vs, cs, nv=length (vs), nc=length (cs) ), "umlgraph")
+	extend (new.env (), "umlgraph", vs, cs, nv=length (vs), nc=length (cs) )
 }
 
 is.umlnode = function (obj) inherits (obj, "umlnode")
 is.umlconnection = function (obj) inherits (obj, "umlconnection")
 
 umlnode = function (x=0, y=0, snapf=northc)
-	extend (ENVIRONMENT (x, y, snapf, cons=list () ), "umlnode")
+	extend (new.env (), "umlnode", x, y, snapf, cons=list () )
 umlconnection = function (v1, v2)
-{	con = extend (ENVIRONMENT (v1, v2, m=NULL), "umlconnection")
+{	con = extend (new.env (), "umlconnection", v1, v2, m=NULL)
 	.umladj (v1, con)
 	.umladj (v2, con)
 	con
